@@ -1,1 +1,3 @@
 HigherEdDepartments.json
+.env
+*/__pycache__
