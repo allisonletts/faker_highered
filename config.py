@@ -5,8 +5,6 @@ import faker.providers.lorem.en_US
 import faker.providers.company
 import faker.providers.phone_number.en_US
 import random
-import json
-import unittest
 
 fake = Faker()
 fakeAddress = faker.providers.address.en_US.Provider(Generator())
