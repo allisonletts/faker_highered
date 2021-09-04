@@ -128,6 +128,16 @@ DEPARTMENTS = {
     'Writing'
     }
 
+FACULTYPOSITIONS = {
+    'Associate Professor',
+    'Professor',
+    'Assistant Professor',
+    'Professor Emeritus',
+    'Adjunct Professor',
+    'Lecturer',
+    'TA',
+    'Chair',
+}
 class Provider(faker.providers.BaseProvider):
     def institution_name(self):
         """Fake higher ed names."""
@@ -138,7 +148,13 @@ class Provider(faker.providers.BaseProvider):
 
     def department_name(self):
         return self.random_element(DEPARTMENTS)
+    
+    def faculty_title(self):
+        position = self.random_element(FACULTYPOSITIONS)
+        department = self.department_name() 
+        return position+" of "+department
+        
 
 """Informal Testing"""      
 prov1 = Provider(Generator())
-print("I study "+prov1.department_name()+" at "+prov1.institution_name())
+print("I am the "+prov1.faculty_title()+" at "+prov1.institution_name())
