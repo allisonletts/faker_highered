@@ -20,67 +20,125 @@ INSTITUTIONTYPES = {
 
 TOPICS = {
     'Cloud',
-    'ABC',
-    'Computing',
+    'ABC Computing',
     'Friendly',
     'Sunshine',
     'XYZ',
     'Rainbow',
     'Synergy',
-    'Supernova'
+    'Supernova',
+    'Connected',
+    'Credentials',
+    'Snowflake',
+    'Salesforce',
+    'Worldview',
+
 }
 
+DEPARTMENTS = {
+    'Accounting Division',
+    'African American and African Diaspora Studies',
+    'Africana Studies',
+    'Anesthesiology',
+    'Anthropology',
+    'Applied Physics and Applied Mathematics',
+    'Architecture',
+    'Art History',
+    'Archaeology',
+    'Asian and Middle Eastern Cultures',
+    'Astronomy and Astrophysics',
+    'Biochemistry and Molecular Biophysics',
+    'Biology',
+    'Biomedical Engineering',
+    'Cardiology',
+    'Chemistry',
+    'Civil Engineering',
+    'Classics',
+    'Classics and Ancient Studies',
+    'Computer Science',
+    'Dance',
+    'Decision, Risk, and Operations Division',
+    'Dermatology',
+    'Digestive and Liver Diseases',
+    'Earth and Environmental Sciences',
+    'East Asian Languages and Cultures',
+    'Ecology, Evolution and Environmental Biology',
+    'Economics',
+    'Electrical Engineering',
+    'Endocrinology',
+    'English and Comparative Literature',
+    'Environmental Health Sciences',
+    'Environmental Science',
+    'Epidemiology',
+    'Film',
+    'Finance and Economics Division',
+    'French',
+    'French and Romance Philology',
+    'General Medicine',
+    'Genetics and Development',
+    'Germanic Languages',
+    'Global Support',
+    'Health Policy and Management',
+    'Hematology',
+    'History',
+    'Industrial Engineering & Operations Research',
+    'Infectious Diseases',
+    'Italian',
+    'Latin American and Iberian Cultures',
+    'Management Division',
+    'Marketing Division',
+    'Mathematics',
+    'Mechanical Engineering',
+    'Medicine',
+    'Microbiology & Immunology',
+    'Middle Eastern, South Asian, and African Studies',
+    'Molecular Medicine',
+    'Music',
+    'Nephrology',
+    'Neurology',
+    'Neuroscience',
+    'Pediatrics',
+    'Pharmacology',
+    'Philosophy',
+    'Philosophy',
+    'Physical Education & Recreation Program',
+    'Physical Education',
+    'Physics',
+    'Physiology and Cellular Biophysics',
+    'Political Science',
+    'Population & Family Health',
+    'Psychiatry',
+    'Psychology',
+    'Pulmonary, Allergy and Critical Care Medicine',
+    'Radiation Oncology',
+    'Radiology',
+    'Rehabilitation and Regenerative Medicine',
+    'Religion',
+    'Religion',
+    'Rheumatology',
+    'Slavic Languages',
+    'Sociology',
+    'Sociomedical Sciences',
+    'Spanish and Latin American Cultures',
+    'Statistics',
+    'Surgery',
+    'Systems Biology',
+    'Theatre',
+    'Visual Arts',
+    'Writing'
+    }
 
 class Provider(faker.providers.BaseProvider):
     def institution_name(self):
         """Fake higher ed names."""
         suffix = self.random_element(INSTITUTIONTYPES)
         topic = self.random_element(TOPICS)
+        # topic = str.title(fakeCompany.catch_phrase())
         return " ".join([topic, suffix]).strip()
 
     def department_name(self):
-        f = open('recipes/plugins/faker_highered/HigherEdDepartments.json')
-        depts = json.load(f)
-        deptnames = set()
-        for item in depts:
-            printme = item["title"]
-            deptnames.add(printme)
-        return self.random_element(deptnames)
+        return self.random_element(DEPARTMENTS)
 
-
-class HigheredProviderTestCase(unittest.TestCase):
-    """Provider test case."""
-
-    def setUp(self):
-        self.provider = Provider(Generator())
-
-    def test_lists_in_order(self):
-        """Test interal values are in order."""
-        for attr_name, attr in self.__dict__.items():
-            with self.subTest(attr_name=attr_name):
-                if isinstance(attr, list):
-                    self.assert_list_in_order(attr)
-
-    def assert_list_in_order(self, the_list):
-        """Assert a list is in order."""
-        prev_value = ""
-        for this_value in the_list:
-            self.assertGreaterEqual(this_value, prev_value)
-            prev_value = this_value
-
-    def test_no_duplicates(self):
-        """Test value lists don't contain duplicates."""
-        for attr_name, attr in self.__dict__.items():
-            with self.subTest(attr_name=attr_name):
-                if isinstance(attr, list):
-                    self.assertEqual(len(attr), len(set(attr)))
-
-    def test_words(self):
-        """Test that generated string is at least two words long."""
-        name = self.provider.institution_name()
-        word_count = len(name.split())
-        self.assertGreaterEqual(word_count, 2)
-
-
-if __name__ == "__main__":
-    unittest.main()
+"""Informal Testing"""      
+prov1 = Provider(Generator())
+print("I study "+prov1.department_name()+" at "+prov1.institution_name())
