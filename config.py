@@ -3,6 +3,8 @@ from faker.generator import Generator
 import faker.providers.address.en_US
 import faker.providers.lorem.en_US
 import faker.providers.company
+import faker.providers.phone_number.en_US
+import random
 import json
 import unittest
 
@@ -10,12 +12,13 @@ fake = Faker()
 fakeAddress = faker.providers.address.en_US.Provider(Generator())
 fakeLorem = faker.providers.lorem.en_US.Provider(Generator())
 fakeCompany = faker.providers.company.Provider(Generator())
+fakePhone = faker.providers.phone_number.en_US.Provider(Generator())
 
 INSTITUTIONTYPES = {
     'University',
     'College',
     'Junior College',
-    'State College'
+    'State University'
 }
 
 TOPICS = {
@@ -32,7 +35,6 @@ TOPICS = {
     'Snowflake',
     'Salesforce',
     'Worldview',
-
 }
 
 DEPARTMENTS = {
@@ -141,20 +143,52 @@ FACULTYPOSITIONS = {
 class Provider(faker.providers.BaseProvider):
     def institution_name(self):
         """Fake higher ed names."""
+        topicsinclstate = set(fakeAddress.states)
+        topicsinclstate.union(TOPICS)
         suffix = self.random_element(INSTITUTIONTYPES)
-        topic = self.random_element(TOPICS)
+        topic = self.random_element(topicsinclstate)
         # topic = str.title(fakeCompany.catch_phrase())
         return " ".join([topic, suffix]).strip()
 
     def department_name(self):
         return self.random_element(DEPARTMENTS)
     
-    def faculty_title(self):
+    def faculty_position(self):
         position = self.random_element(FACULTYPOSITIONS)
+        return position
+
+    def faculty_title(self):
+        position = self.faculty_position()
         department = self.department_name() 
         return position+" of "+department
-        
+
+### Phone Numbers (could move to separate class)
+    """Built around the North American Numbering Plan"""
+    def phone_areacode(self):
+        """Generates Area Codes from the of the North American Numbering Plan
+        Allowed ranges: [2–9] for the first digit, and [0-9] for the second and third digits. 
+        When the second and third digits of an area code are the same, 
+        that code is called an easily recognizable code (ERC). 
+        ERCs designate special services; e.g., 800 for toll-free service. 
+        The NANP is not assigning area codes with 9 as the second digit.[34]"""
+        firstdigit = random.randint(2,9)
+        seconddigit = random.randint(0,9)
+        thirddigit = random.randint(0,9)
+        while seconddigit == thirddigit:
+          thirddigit = random.randint(0,9)
+        return str(firstdigit)+str(seconddigit)+str(thirddigit)
+    
+    def phone_exchange(self):
+        """generally follows the same pattern as area code. While this doesn't capture
+        every single option for phone numbers, it gets us pretty close."""
+        return self.phone_areacode()
+    
+    def phone_lastfour(self):
+        return fake.numerify(text='####')
+
+    
 
 """Informal Testing"""      
 prov1 = Provider(Generator())
 print("I am the "+prov1.faculty_title()+" at "+prov1.institution_name())
+print(('My phone number is {0}-{1}-{2}').format(prov1.phone_areacode(),prov1.phone_exchange(),prov1.phone_lastfour()))

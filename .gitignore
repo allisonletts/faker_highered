@@ -1,3 +1,6 @@
 HigherEdDepartments.json
 .env
-*/__pycache__
+__pycache__
+.DS_Store
+.vscode
+workspace.code-workspace

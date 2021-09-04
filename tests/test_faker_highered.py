@@ -33,7 +33,6 @@ class HigheredProviderTestCase(unittest.TestCase):
     def test_words(self):
         """Test that generated string is at least two words long."""
         name = self.provider.institution_name()
-        print('sample',name)
         word_count = len(name.split())
         self.assertGreaterEqual(word_count, 2)
 
