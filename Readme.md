@@ -1,6 +1,9 @@
-# Snowfakery Extras
+# Faker Higher Ed
 
-This is a collection of sample code and directions for creating plugins and providers for Snowfakery.
+## About
+
+This is a collection of sample code and directions for creating plugins and providers for Snowfakery. We're trying to create fake data to make a whole university setup.
+[EDA Data Dictionary](https://powerofus.force.com/s/article/EDA-Data-Dictionary) - please try to keep fields in use to standard Salesforce or EDA fields.
 
 ## Things you'll need
 
