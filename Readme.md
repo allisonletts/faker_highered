@@ -27,5 +27,5 @@ This is a collection of sample code and directions for creating plugins and prov
 ## Attach Your Provider to your recipe
 
 1. Open the basic recipe you want to use for testing (start with something simple you already know how to use).
-2. Add a new line at the top to load the new plugin: `- plugin: plugins.faker_nonprofit`
+2. Add a new line at the top to load the new plugin: `- plugin: plugins.faker_highered`
 3. Add/Update a field to use the new provider.
