@@ -9,9 +9,8 @@ This is a collection of sample code and directions for creating plugins and prov
 
 1. Python 3 (generally recent-ish version).
 2. Snowfakery 1.9 or later.
-3. Faker module for python (`pip3 install Faker`).
-    1. A Faker sample community provider like [Microservice](https://github.com/craiga/faker-microservice): `pip3 install faker-microservice`
-4. A recipe to work from (see recipes folder).
+3. Faker module for python (`pipx install Faker`).
+4. A recipe to work from (see the [recipes folder of this repo](https://github.com/SFDO-Community-Sprints/Snowfakery-Recipe-Templates/tree/main/snowfakery_samples) for ideas).
 
 ## Creating a fakery provider for Snowfakery
 
